@@ -56,6 +56,15 @@ class JsonUtilTest extends TestCase
         ];
 
         yield [
+            '{"a": 1, "b": false, "c": [1, 2, 3]}',
+            [
+                'a' => ['int'],
+                'b' => ['bool'],
+                'c' => ['array', 'list<int>'],
+            ],
+        ];
+
+        yield [
             '{"a": 1, "b": false, "c": [1, false, "foo"]}',
             [
                 'a' => ['int'],

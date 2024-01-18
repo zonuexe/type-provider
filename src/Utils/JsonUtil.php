@@ -5,7 +5,12 @@ declare(strict_types=1);
 namespace zonuexe\TypeProvider\Utils;
 
 use DomainException;
+use function array_flip;
 use function array_is_list;
+use function array_key_first;
+use function array_keys;
+use function count;
+use function implode;
 use function is_array;
 use function is_bool;
 use function is_float;
@@ -62,6 +67,10 @@ trait JsonUtil
                 is_array($element) => $this->parseElements($element),
                 default => throw new DomainException('Unexpected type'),
             };
+        }
+
+        if (array_is_list($types) && count(array_flip($types)) === 1) {
+            return "list<{$types[array_key_first($types)]}>";
         }
 
         return 'array{' . implode(
